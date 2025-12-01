@@ -1,0 +1,56 @@
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:cryptography/cryptography.dart';
+
+/// Encryption Handler
+/// Uses XChaCha20-Poly1305 for message encryption/decryption.
+/// Key is derived from user password using PBKDF2-HMAC-SHA256.
+class EncryptionHandler {
+  final _algorithm = Xchacha20.poly1305Aead();
+
+  /// Derive a SecretKey from the user's password using PBKDF2
+  Future<SecretKey> generateKey(String password) async {
+    final pbkdf2 = Pbkdf2(
+      macAlgorithm: Hmac.sha256(),
+      iterations: 100000,
+      bits: 256,
+    );
+    return await pbkdf2.deriveKey(
+      secretKey: SecretKey(utf8.encode(password)),
+      nonce: utf8.encode('cryptx_fixed_salt'),
+    );
+  }
+
+  /// Encrypt a plaintext message
+  /// Returns map with cipher, nonce, and mac (all base64 encoded)
+  Future<Map<String, String>> encrypt(String message, SecretKey key) async {
+    final nonce = _algorithm.newNonce();
+    final secretBox = await _algorithm.encrypt(
+      utf8.encode(message),
+      secretKey: key,
+      nonce: nonce,
+    );
+    return {
+      'cipher': base64Encode(secretBox.cipherText),
+      'nonce': base64Encode(nonce),
+      'mac': base64Encode(secretBox.mac.bytes),
+    };
+  }
+
+  /// Decrypt an encrypted message
+  /// Accepts cipher, nonce, mac (all base64 encoded) and key
+  Future<String> decrypt(
+    String cipher,
+    String nonce,
+    String mac,
+    SecretKey key,
+  ) async {
+    final secretBox = SecretBox(
+      base64Decode(cipher),
+      nonce: base64Decode(nonce),
+      mac: Mac(base64Decode(mac)),
+    );
+    final decrypted = await _algorithm.decrypt(secretBox, secretKey: key);
+    return utf8.decode(decrypted);
+  }
+}

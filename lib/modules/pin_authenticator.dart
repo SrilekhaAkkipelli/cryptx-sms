@@ -1,0 +1,27 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
+/// PIN Authenticator
+/// Manages PIN storage and verification for CryptX access control.
+class PinAuthenticator {
+  static const String _boxName = 'cryptx_auth';
+  static const String _pinKey = 'user_pin';
+
+  /// Save the user's PIN securely in Hive local storage
+  static Future<void> setPin(String pin) async {
+    final box = await Hive.openBox(_boxName);
+    await box.put(_pinKey, pin);
+  }
+
+  /// Verify the entered PIN against stored PIN
+  static Future<bool> verifyPin(String inputPin) async {
+    final box = await Hive.openBox(_boxName);
+    final storedPin = box.get(_pinKey);
+    return storedPin != null && storedPin == inputPin;
+  }
+
+  /// Check if a PIN has been set
+  static Future<bool> hasPin() async {
+    final box = await Hive.openBox(_boxName);
+    return box.containsKey(_pinKey);
+  }
+}

@@ -31,3 +31,5 @@ class MessageModel {
     isEncrypted: map['isEncrypted'] ?? false,
   );
 }
+
+// update 1 - 2025-12-02

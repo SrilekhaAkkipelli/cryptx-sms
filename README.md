@@ -2,23 +2,23 @@
 
 A **Flutter-based Android application** that provides secure, offline SMS communication using the **XChaCha20-Poly1305** encryption algorithm with **PIN-based authentication**.
 
-## 📌 Project Info
+##  Project Info
 - **College:** G. Narayanamma Institute of Technology and Science (For Women)
 - **Department:** Information Technology
 - **Academic Year:** December 2025 – April 2026
 - **Team:** Srilekha Akkipelli, Vishwasri Ramdeni, Sumayya Sadaf
 - **Guide:** Mrs. D. Vandana, Assistant Professor
 
-## 🔐 Key Features
-- ✅ End-to-end SMS encryption using **XChaCha20-Poly1305**
-- ✅ **Offline** operation — no internet required
-- ✅ PIN-based authentication to view decrypted messages
-- ✅ SMS-safe encoding (Morse-inspired) for transmission
-- ✅ Automatic CryptX message detection
-- ✅ Local encrypted storage using Hive
-- ✅ Clean Flutter UI
+## Key Features
+-  End-to-end SMS encryption using **XChaCha20-Poly1305**
+-  **Offline** operation — no internet required
+-  PIN-based authentication to view decrypted messages
+-  SMS-safe encoding (Morse-inspired) for transmission
+-  Automatic CryptX message detection
+-  Local encrypted storage using Hive
+-  Clean Flutter UI
 
-## 🛠️ Tech Stack
+## Tech Stack
 | Layer | Technology |
 |-------|-----------|
 | Frontend | Flutter (Dart) |
@@ -27,7 +27,7 @@ A **Flutter-based Android application** that provides secure, offline SMS commun
 | Local Storage | Hive |
 | SMS | flutter_telephony |
 
-## 📁 Project Structure
+##  Project Structure
 ```
 cryptx-sms/
 ├── lib/
@@ -49,14 +49,14 @@ cryptx-sms/
 └── README.md
 ```
 
-## 🔒 How It Works
+##  How It Works
 
 ```
 SENDER:  Message → XChaCha20 Encrypt → SMS-Safe Encode → Send SMS
 RECEIVER: Receive SMS → Detect CryptX → Decode → PIN Auth → Decrypt → Display
 ```
 
-## 📦 Dependencies
+##  Dependencies
 
 ```yaml
 dependencies:
@@ -67,22 +67,22 @@ dependencies:
   permission_handler: ^11.0.0
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ```bash
 flutter pub get
 flutter run
 ```
 
-## 📊 Test Results
+##  Test Results
 | Test | Result |
 |------|--------|
-| Send Encrypted SMS | ✅ Pass |
-| Receive & Detect CryptX | ✅ Pass |
-| Correct PIN Decryption | ✅ Pass |
-| Wrong PIN Access Denied | ✅ Pass |
-| Offline Functionality | ✅ Pass |
-| SMS Encoding Integrity | ✅ Pass |
+| Send Encrypted SMS |  Pass |
+| Receive & Detect CryptX |  Pass |
+| Correct PIN Decryption |  Pass |
+| Wrong PIN Access Denied | Pass |
+| Offline Functionality |  Pass |
+| SMS Encoding Integrity |  Pass |
 
 <!-- init -->
 // update 5 - 2025-12-06
